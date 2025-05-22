@@ -2,7 +2,7 @@
 https://github.com/ament/ament_cmake.git 30989cdbc51f045b7656d2b20fff7eac26f28396
 https://github.com/ament/ament_index.git f019d6c40991799a13b18c9c3dcc583e3fde0381
 https://github.com/ament/ament_lint.git 233b7a5438fb87bd03e5c432a70391a221fda3f6
-https://github.com/ament/ament_package.git f8ea958fd02cff6f4192425e28566369c92b5e34
+https://github.com/ament/ament_package.git 25f8af52e1dac7f4597161e42ab041607cb49a4e
 https://github.com/ament/googletest.git 083afd688a0d14239a831e1734e66a15664389c1
 https://github.com/ament/uncrustify_vendor.git ec8f8b4d03483671e8ea2b3039f1015f92b0ef89
 https://github.com/eProsima/Micro-CDR.git ed4fd513a24a53b93d548d342cb7aa0a18716f04
