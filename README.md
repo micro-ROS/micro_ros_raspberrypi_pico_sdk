@@ -64,6 +64,16 @@ or using the [micro-ros-agent Docker](https://hub.docker.com/r/microros/micro-ro
 docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:kilted serial --dev /dev/ttyACM0 -b 115200
 ```
 
+### Using UART serial communication
+
+To use the UART serial protocol instead of USB (for example, to use micro-ROS in combination with a Raspberry Pi Debug Probe), it is enough to update the `# Configure Pico` section in the `CMakeLists.txt` file as follows:
+
+```
+# Configure Pico
+pico_enable_stdio_usb(pico_micro_ros_example 0)
+pico_enable_stdio_uart(pico_micro_ros_example 1)
+```
+
 ## What files are relevant?
 - `pico_uart_transport.c`: Contains the board specific implementation of the serial transport (no change needed).
 - `CMakeLists.txt`: CMake file.
