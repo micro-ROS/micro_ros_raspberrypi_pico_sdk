@@ -11,12 +11,15 @@ pico_sdk_init()
 link_directories(libmicroros)
 
 add_executable(pico_micro_ros_example
+   config/config.c
     src/main.c
     src/ros.c
     src/debug.c
     src/init.c
-    src/joint.c
     src/pwm.c
+
+    src/joint.c
+    src/board.c
     src/pico_uart_transport/pico_uart_transport.c
 )
 
@@ -24,6 +27,7 @@ target_link_libraries(pico_micro_ros_example
     pico_stdlib
     microros
     hardware_pwm
+    hardware_i2c
     ws2812_leds
 )
 

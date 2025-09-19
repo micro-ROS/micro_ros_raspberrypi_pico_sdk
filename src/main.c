@@ -6,8 +6,10 @@
 #include "ros.h"
 
 status_t init_lucy(void);
+void dump_config(void);
 
 int main(void) {
+  dump_config();
   if (init_lucy() == KO) {
     ws2812_set_rgb(0, 10, 0, 0);
     return KO;

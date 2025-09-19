@@ -1,7 +1,16 @@
 #pragma once
 
-#define NB_SENSORS  6
-#define NB_JOINTS   18
+#define I2C_SDA_PIN 4
+#define I2C_SCL_PIN 4
+
+#define NB_BOARDS 1
+
+#define NB_JOINTS 15
+
+#define NB_INTERNAL_SENSORS   6
+#define NB_INTERNAL_JOINTS    18
+
+#define NB_ADAFRUIT_JOINTS    16
 
 #define UPDATE_TIMER_INTERVAL RCL_MS_TO_NS(100)
 #define UPTIME_TIMER_INTERVAL RCL_MS_TO_NS(1000)

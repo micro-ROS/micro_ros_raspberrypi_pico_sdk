@@ -20,6 +20,7 @@
 #include "ws2812_set_rgb.h"
 
 #include "util.h"
+#include "board.h"
 #include "constant.h"
 #include "enum.h"
 #include "pico_uart_transports/pico_uart_transports.h"
@@ -84,12 +85,19 @@ static void joint_subscriber_callback(const sensor_msgs__msg__JointState *inputs
 {
   empile_trace("servo_subscriber_callback");
 
-  for (size_t i = 0; i < NB_JOINTS; i++) {
+  send_log("Calling joint subscriber");
+  for (size_t i = 0; i < NB_BOARDS; i++) {
+    send_log("Updating board %d", boards[i].joint_update == NULL);
+    if (boards[i].joint_update != NULL) {
+      boards[i].joint_update(&boards[i], inputs);
+    }
+  }
+  /*for (size_t i = 0; i < NB_JOINTS; i++) {
     joints[i].angle = joints_angle[i];
     if (joints[i].config.move_callback != NULL) {
       joints[i].config.move_callback(&joints[i]);
     }
-  }
+  }*/
 
   depile_trace("servo_subscriber_callback");
 }
@@ -120,8 +128,8 @@ status_t init_ros_pico(void) {
 
   //rclc_timer_init_default(&update_timer, &node.support, UPDATE_TIMER_INTERVAL, &update_timer_callback);
   rclc_timer_init_default(&uptime_timer, &node.support, UPTIME_TIMER_INTERVAL, &uptime_timer_callback);
-  rclc_publisher_init_default(&uptime_publisher, &node.node, ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32), UPTIME_PUBLISHER_TOPIC_NAME);
   rclc_executor_add_timer(&node.executor, &uptime_timer);
+  rclc_publisher_init_default(&uptime_publisher, &node.node, ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32), UPTIME_PUBLISHER_TOPIC_NAME);
 
   sensor_msgs__msg__JointState__init(&joint_subscriber_data);
   init_joint_subscriber_data();

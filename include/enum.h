@@ -1,6 +1,6 @@
 #pragma once
 
 typedef enum status_e {
-    OK,
-    KO
+    KO = 0,
+    OK = 1
 } status_t;
