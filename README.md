@@ -88,6 +88,54 @@ Note that folders added to `microros_static_library/library_generation/extra_pac
 
 Here is a Raspberry Pi Pico C/C++ SDK documentation:
 https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf
+
+## Create custom message
+Note: this is a twofold procedure, the custom message need to be installed separately on the Pico, and the host. The installation procedure on the Pico uses a Docker container, to mimic a "virtual" ROS2 workspace. The installation procedure on the host PC follows the "standard" procedure found in the documentation.
+
+### On the Pico
+First create custom message `.msg` files under the `microros_static_library/library_generation/extra_packages` folder. Roughly follow steps 2-4 here: 
+
+https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html#create-custom-definitions
+
+1. Make custom message
+2. Add appropriate CMakeLists.txt
+3. Add lines to package.xml
+
+Open a Terminal in your host PC, `cd` into your project root. Run 
+
+```
+docker run -it -v $(pwd):/project --net=host microros/micro_ros_static_library_builder:<Your ROS distro>
+```
+
+Example for ROS2 Humble:
+
+```
+docker run -it -v $(pwd):/project --net=host microros/micro_ros_static_library_builder:humble
+```
+
+The Docker container will host a ROS2 workspace, in order to install the custom message. Your project folder is a local Docker volume, persisting the necessary changes.
+
+Expect a lot of `rsync` errors, but there should be no build errors. Any build errors indicate something not right in steps 1-3 above ^.
+
+### On the host computer
+The custom message needs to be installed on the host computer, for ROS2 to use it.
+
+Follow these steps, adjust to your message:
+
+https://micro.ros.org/docs/tutorials/advanced/create_new_type/
+
+#### Known issues
+The process will re-add some files already existing under the `microros/static_library/` and `libmicroros` folders. 
+
+Existing CMakelists.txt in subfolders will be deleted, and need to be restored. 
+
+#### TODO
+- Improve `library_generation.sh` script.
+- Add custom services to README
+- Add examples
+- Improve this section
+- Explain GIT changes better
+
 ## Purpose of the Project
 
 This software is not ready for production use. It has neither been developed nor
