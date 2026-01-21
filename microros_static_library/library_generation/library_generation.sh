@@ -35,7 +35,7 @@ pushd firmware/mcu_ws > /dev/null
 popd > /dev/null
 
 ######## Clean and source ########
-find /project/src/ ! -name micro_ros_arduino.h ! -name *.c ! -name *.cpp ! -name *.c.in -delete
+find /project/src/ ! -name micro_ros_arduino.h ! -name *.c ! -name *.cpp ! -name *.c.in  -name *.txt ! -name *.md -delete
 
 ######## Build for Raspberry Pi Pico SDK  ########
 rm -rf firmware/build
